@@ -5,17 +5,18 @@ import{Inter, Space_Grotesk} from 'next/font/google'
 import type { Metadata } from 'next';
 
 import './globals.css';
+import { ThemeProvider } from '@/context/ThemeProvider';
 
 const inter  = Inter ({
   subsets: ['latin'],
-  weight: ['100' '200' '300' '400' '500' '600' '700' '800' '900'],
+  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
   variable: '--font-inter'
 
 }) 
 
 const spaceGrotesk = Space_Grotesk ({
   subsets: ['latin'],
-  weight: ['100' '200' '300' '400' '500' '600' '700'],
+  weight: ['300', '400', '500', '600', '700'],
   variable: '--font-spaceGrotesk'
 
 }) 
@@ -23,8 +24,8 @@ const spaceGrotesk = Space_Grotesk ({
 
 export const metadata: Metadata = {
   title: 'devflow',
-  description: 'a community driven platform for asking'
-  
+  description: 'a community driven platform for asking',
+
   icons: {
     icon: '/assets/images/site-logo.svg'
   }
@@ -38,21 +39,24 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <ClerkProvider>
-      appearance={{
-        elemnts: {
-          frommButtonPrimary:'primary-gradient',
-          footerActionLink:'primary-text-gradient hover:text-primary-500'
-        }
-      }}
+    
       
     
       <html lang="en">
         <body className={`${inter.variable} ${spaceGrotesk.variable}`}>
-         <h1 className='h1-bold'>tgis is a peace of shit</h1>
-          {children}
+          <ClerkProvider
+            appearance={{
+              elements: {
+               formButtonPrimary:'primary-gradient',
+                footerActionLink:'primary-text-gradient hover:text-primary-500'
+              } 
+      }}>
+            <ThemeProvider>
+              {children}
+            </ThemeProvider>
+          </ClerkProvider>  
         </body>
       </html>
-    </ClerkProvider>
+    
   )
 }
